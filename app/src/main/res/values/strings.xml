@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Rogue</string>
+    <string name="hello">hello</string>
+    <string name="niveau_1">Niveau: 1</string>
 </resources>

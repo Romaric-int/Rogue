@@ -3,11 +3,11 @@ package fr.iutlens.mmi.rogue
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.ProgressBar
 import android.widget.TextView
 import fr.iutlens.mmi.rogue.util.Coordinate
 import fr.iutlens.mmi.rogue.util.SpriteSheet
@@ -56,7 +56,31 @@ class GameView : View, OnTouchListener {
         level.generate()
         val start = level.start
         hero = Hero(R.drawable.tileset, 1, level.coord.getX(start), level.coord.getY(start))
+        hpbar()
+
     }
+
+    var progressBar: ProgressBar?= null
+
+
+
+    fun hpbar() {
+        progressBar?.progress = hero.hp
+    }
+
+    var resumelvl: TextView?= null
+
+
+    fun showlvl() {
+        var  nivhero = hero.lvl.toString()
+        resumelvl?.text = "Niveau: $nivhero"
+    }
+
+
+
+
+
+
 
     /**
      * Méthode appelée (automatiquement) pour afficher la vue
@@ -82,11 +106,11 @@ class GameView : View, OnTouchListener {
         hero.paint(canvas)
         val h = level.spriteSheet?.h ?: return
         val v = level.spriteSheet?.h ?: return
-        canvas.drawRect((h*hero.x-70).toFloat(), (v*hero.y-130).toFloat(), (h*hero.x+150).toFloat(), (v*hero.y-50).toFloat(),hero.resumeRect)
 
-        //AFFICHAGE VIE
-        val hpTextView: TextView = findViewById(R.id.ViewHp)
-        hpTextView.text = hero.hp.toString()
+
+
+
+
     }
 
     private fun setCamera(canvas: Canvas) {
@@ -154,6 +178,11 @@ class GameView : View, OnTouchListener {
         // On récupère le contenu de la case, et on applique l'effet si on trouve qq chose
         val sprite = level.getContent(hero.x, hero.y)
         sprite?.effect(level, hero)
+        hpbar()
+        showlvl()
+
+
+
 
         // Le jeu a besoin d'être affiché à nouveau, puisqu'on a bougé
         invalidate()
