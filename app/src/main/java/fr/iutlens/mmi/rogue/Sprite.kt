@@ -38,6 +38,10 @@ class Sprite {
     fun effect(level: Level?, hero: Hero?) {
         if (Tile.get(id)!!.hasOneFlag(Tile.F_MONSTER or Tile.F_CONSOMMABLE)) {
             level!!.removeContent(x, y)
+            if (Tile.get(id)!!.hasOneFlag(Tile.F_MONSTER)) hero?.fight(id)
+            if (Tile.get(id)!!.hasOneFlag(Tile.F_CONSOMMABLE)) hero?.heal(id)
+
+
         }
     }
 }

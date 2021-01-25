@@ -1,6 +1,8 @@
 package fr.iutlens.mmi.rogue
 
 import android.graphics.Canvas
+import android.graphics.Paint
+import android.widget.TextView
 import fr.iutlens.mmi.rogue.util.Coordinate
 import fr.iutlens.mmi.rogue.util.SpriteSheet
 
@@ -15,9 +17,24 @@ class Hero(tileset: Int, id: Int, x: Int, y: Int) {
     var y: Int
         private set
 
+    var hp: Int = 100
+
+
     fun paint(canvas: Canvas) {
         spriteSheet!!.paint(canvas, id, x * spriteSheet.w.toFloat(), y * spriteSheet.h.toFloat(), 0xffc1b5)
     }
+
+    val resumeRect = Paint().apply {
+        color = 0xffffffff.toInt()
+        style = Paint.Style.FILL
+    }
+
+
+
+
+
+
+
 
     val mobility: Int
         get() = Tile.F_WALK or Tile.F_SWIM
@@ -25,6 +42,15 @@ class Hero(tileset: Int, id: Int, x: Int, y: Int) {
     fun move(dir: Int) {
         x += Coordinate.dir_coord.get(dir).get(0)
         y += Coordinate.dir_coord.get(dir).get(1)
+    }
+
+    fun fight(id: Int) {
+        hp -= 3
+
+    }
+
+    fun heal(id: Int) {
+        hp += 3
     }
 
     init {

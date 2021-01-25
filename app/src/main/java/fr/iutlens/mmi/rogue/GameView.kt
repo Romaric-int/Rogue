@@ -3,10 +3,12 @@ package fr.iutlens.mmi.rogue
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
+import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
+import android.widget.TextView
 import fr.iutlens.mmi.rogue.util.Coordinate
 import fr.iutlens.mmi.rogue.util.SpriteSheet
 
@@ -66,6 +68,7 @@ class GameView : View, OnTouchListener {
         // On met une couleur de fond
         canvas.drawColor(-0x1000000)
 
+
         if (!this::hero.isInitialized) return
 
 
@@ -77,7 +80,13 @@ class GameView : View, OnTouchListener {
         // Dessin des différents éléments
         level.paint(canvas, hero.x, hero.y, MIN_VISIBLE_TILES)
         hero.paint(canvas)
+        val h = level.spriteSheet?.h ?: return
+        val v = level.spriteSheet?.h ?: return
+        canvas.drawRect((h*hero.x-70).toFloat(), (v*hero.y-130).toFloat(), (h*hero.x+150).toFloat(), (v*hero.y-50).toFloat(),hero.resumeRect)
 
+        //AFFICHAGE VIE
+        val hpTextView: TextView = findViewById(R.id.ViewHp)
+        hpTextView.text = hero.hp.toString()
     }
 
     private fun setCamera(canvas: Canvas) {
@@ -110,7 +119,7 @@ class GameView : View, OnTouchListener {
     override fun onTouch(v: View, event: MotionEvent): Boolean {
         if (event.action == MotionEvent.ACTION_UP) {
             val coord = floatArrayOf(event.x, event.y)
-            inverse!!.mapPoints(coord)
+            inverse.mapPoints(coord)
             moveToward(coord[0], coord[1])
         }
         return true
@@ -140,7 +149,7 @@ class GameView : View, OnTouchListener {
 
     private fun move(dir: Int) {
         // Déplacement proprement dit
-        hero!!.move(dir)
+        hero.move(dir)
 
         // On récupère le contenu de la case, et on applique l'effet si on trouve qq chose
         val sprite = level.getContent(hero.x, hero.y)
@@ -174,3 +183,5 @@ class GameView : View, OnTouchListener {
         const val MIN_VISIBLE_TILES = 14
     }
 }
+
+
