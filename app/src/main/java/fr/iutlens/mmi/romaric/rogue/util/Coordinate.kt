@@ -1,4 +1,4 @@
-package fr.iutlens.mmi.rogue.util
+package fr.iutlens.mmi.romaric.rogue.util
 
 /**
  * Created by dubois on 23/12/2019.

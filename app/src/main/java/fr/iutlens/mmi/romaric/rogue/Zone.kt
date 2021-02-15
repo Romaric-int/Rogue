@@ -1,4 +1,4 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 /**
  * Created by dubois on 30/12/2019.
@@ -9,7 +9,7 @@ class Zone {
     var border = 0
 
     constructor() {
-        typeA = Tile.Companion.ROCK //typeChooser.getOne();
+        typeA = Tile.ROCK //typeChooser.getOne();
         typeB = typeChooser.getOne(typeA)
     }
 
@@ -66,7 +66,7 @@ class Zone {
     }
 
     companion object {
-        val zoneType = arrayOf<Int>(Tile.Companion.ROCK, Tile.Companion.EARTH, Tile.Companion.GRASS, Tile.Companion.SAND, Tile.Companion.WATER)
+        val zoneType = arrayOf<Int>(Tile.ROCK, Tile.EARTH, Tile.GRASS, Tile.SAND, Tile.WATER)
         val typeChooser = RandomChooser(zoneType)
         fun generateZone(level: Level) {
             // 0 1 2     2

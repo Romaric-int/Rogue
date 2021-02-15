@@ -1,4 +1,4 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 import android.content.Intent
 import android.os.Bundle

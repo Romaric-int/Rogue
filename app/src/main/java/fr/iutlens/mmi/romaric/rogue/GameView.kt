@@ -1,19 +1,17 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
-import androidx.core.view.TintableBackgroundView
-import androidx.core.widget.AutoSizeableTextView
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.widget.ProgressBar
 import android.widget.TextView
-import fr.iutlens.mmi.rogue.util.Coordinate
-import fr.iutlens.mmi.rogue.util.SpriteSheet
-import kotlin.Array as Array
+
+import fr.iutlens.mmi.romaric.rogue.util.Coordinate
+import fr.iutlens.mmi.romaric.rogue.util.SpriteSheet
 
 
 class GameView : View, OnTouchListener {

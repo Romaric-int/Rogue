@@ -1,8 +1,8 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 import android.graphics.Canvas
-import fr.iutlens.mmi.rogue.util.Coordinate
-import fr.iutlens.mmi.rogue.util.SpriteSheet
+import fr.iutlens.mmi.romaric.rogue.util.Coordinate
+import fr.iutlens.mmi.romaric.rogue.util.SpriteSheet
 import java.util.*
 
 /**

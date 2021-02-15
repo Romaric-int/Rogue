@@ -1,8 +1,8 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 import android.util.Log
 import android.util.Pair
-import fr.iutlens.mmi.rogue.Room.Opening
+import fr.iutlens.mmi.romaric.rogue.Room.Opening
 import java.util.*
 
 /**
@@ -59,14 +59,14 @@ internal class RoomGenerator(level: Level) {
             r.addWall(level)
         }
         for (link in anchors.values) {
-            if (link.to != null) level[link.x, link.y] = Tile.Companion.PAVEMENT else
+            if (link.to != null) level[link.x, link.y] = Tile.PAVEMENT else
                 if (link.from.spec!!.connect.contains<String?>(null)) {
                 val id = level[link.x, link.y, link.dir]
                 if (id != -1 &&
-                        Tile.Companion.get(id)!!.hasOneFlag(Tile.Companion.F_WALK)
-                        && !Tile.Companion.get(id)!!.hasOneFlag(Tile.Companion.F_BUILDING)) {
-                    level[link.x, link.y] = Tile.Companion.PAVEMENT
-                    level.setContent(link.x, link.y, Sprite(Tile.Companion.DOOR, link.x, link.y))
+                        Tile.get(id)!!.hasOneFlag(Tile.F_WALK)
+                        && !Tile.get(id)!!.hasOneFlag(Tile.F_BUILDING)) {
+                    level[link.x, link.y] = Tile.PAVEMENT
+                    level.setContent(link.x, link.y, Sprite(Tile.DOOR, link.x, link.y))
                 }
             }
         }
@@ -75,12 +75,12 @@ internal class RoomGenerator(level: Level) {
         while (x < level.coord.sizeX) {
             y = 0
             while (y < level.coord.sizeY) {
-                val tile: Tile? = Tile.Companion.get(level[x, y])
-                if (tile != null && tile.hasOneFlag(Tile.Companion.F_BUILDING)) {
+                val tile: Tile? = Tile.get(level[x, y])
+                if (tile != null && tile.hasOneFlag(Tile.F_BUILDING)) {
                     var count = 0
                     for (i in 0..3) {
-                        val neighbor: Tile? = Tile.Companion.get(level[x, y, i])
-                        if (neighbor != null && neighbor.hasAllFlag(Tile.Companion.F_WALL)) count++
+                        val neighbor: Tile? = Tile.get(level[x, y, i])
+                        if (neighbor != null && neighbor.hasAllFlag(Tile.F_WALL)) count++
                     }
                     if (count == 3) stairsChooser.addOption(level.coord.getNdx(x, y), 1, 1)
                 }
@@ -93,10 +93,10 @@ internal class RoomGenerator(level: Level) {
         val end = result[1]
         x = level.coord.getX(start)
         y = level.coord.getY(start)
-        level.setContent(x, y, Sprite(Tile.Companion.STAIRS_UP, x, y))
+        level.setContent(x, y, Sprite(Tile.STAIRS_UP, x, y))
         x = level.coord.getX(end)
         y = level.coord.getY(end)
-        level.setContent(x, y, Sprite(Tile.Companion.STAIRS_DOWN, x, y))
+        level.setContent(x, y, Sprite(Tile.STAIRS_DOWN, x, y))
         level.start = start
     }
 

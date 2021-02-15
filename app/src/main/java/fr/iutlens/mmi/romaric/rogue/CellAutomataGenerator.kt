@@ -1,6 +1,6 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
-import fr.iutlens.mmi.rogue.util.Coordinate
+import fr.iutlens.mmi.romaric.rogue.util.Coordinate
 
 /**
  * Created by dubois on 25/12/2019.

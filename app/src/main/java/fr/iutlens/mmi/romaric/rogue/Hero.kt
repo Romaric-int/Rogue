@@ -1,11 +1,9 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
-import android.app.AlertDialog
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.widget.TextView
-import fr.iutlens.mmi.rogue.util.Coordinate
-import fr.iutlens.mmi.rogue.util.SpriteSheet
+import fr.iutlens.mmi.romaric.rogue.util.Coordinate
+import fr.iutlens.mmi.romaric.rogue.util.SpriteSheet
 
 /**
  * Created by dubois on 24/12/2019.

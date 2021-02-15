@@ -1,13 +1,11 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
 import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.widget.EditText
-import android.view.View
 
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+
 
 const val EXTRA_MESSAGE = ".mess"
 const val EXTRA_PHOTO = ".photo"

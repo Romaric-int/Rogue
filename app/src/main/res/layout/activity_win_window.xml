@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WinWindow">
+    tools:context="fr.iutlens.mmi.romaric.rogue.WinWindow">
 
     <TextView
         android:id="@+id/textwin"

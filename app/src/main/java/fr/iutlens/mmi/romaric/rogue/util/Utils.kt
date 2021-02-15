@@ -1,4 +1,4 @@
-package fr.iutlens.mmi.rogue.util
+package fr.iutlens.mmi.romaric.rogue.util
 
 import android.content.Context
 import android.graphics.*

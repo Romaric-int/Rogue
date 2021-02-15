@@ -1,6 +1,6 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
-import fr.iutlens.mmi.rogue.util.Coordinate
+import fr.iutlens.mmi.romaric.rogue.util.Coordinate
 import java.util.*
 
 /**
@@ -87,59 +87,59 @@ internal class Room(type: String?) {
         }
 
         fun addDinerFurniture(): Spec {
-            for (x in 2..4) for (y in 2..4) sprite.add(Sprite(Tile.Companion.TABLE, x, y))
+            for (x in 2..4) for (y in 2..4) sprite.add(Sprite(Tile.TABLE, x, y))
             for (x in 1..5) {
-                sprite.add(Sprite(Tile.Companion.CHAIR, x, 1))
-                sprite.add(Sprite(Tile.Companion.CHAIR, x, 5))
+                sprite.add(Sprite(Tile.CHAIR, x, 1))
+                sprite.add(Sprite(Tile.CHAIR, x, 5))
             }
             for (y in 2..4) {
-                sprite.add(Sprite(Tile.Companion.CHAIR, 1, y))
-                sprite.add(Sprite(Tile.Companion.CHAIR, 5, y))
+                sprite.add(Sprite(Tile.CHAIR, 1, y))
+                sprite.add(Sprite(Tile.CHAIR, 5, y))
             }
             return this
         }
 
         fun addApartementFurniture(): Spec {
-            sprite.add(Sprite(Tile.Companion.BED, 0, 1))
-            sprite.add(Sprite(Tile.Companion.BUFFET, 0, 3))
-            sprite.add(Sprite(Tile.Companion.TABLE, 4, 1))
-            sprite.add(Sprite(Tile.Companion.CHAIR, 4, 0))
-            sprite.add(Sprite(Tile.Companion.TABLE, 4, 2))
-            sprite.add(Sprite(Tile.Companion.CHAIR, 4, 3))
+            sprite.add(Sprite(Tile.BED, 0, 1))
+            sprite.add(Sprite(Tile.BUFFET, 0, 3))
+            sprite.add(Sprite(Tile.TABLE, 4, 1))
+            sprite.add(Sprite(Tile.CHAIR, 4, 0))
+            sprite.add(Sprite(Tile.TABLE, 4, 2))
+            sprite.add(Sprite(Tile.CHAIR, 4, 3))
             return this
         }
 
         fun addBarracksFurniture(): Spec {
             var y = 1
             while (y < 13) {
-                sprite.add(Sprite(Tile.Companion.BED, 0, y))
-                sprite.add(Sprite(Tile.Companion.BUFFET, 1, y))
-                sprite.add(Sprite(Tile.Companion.BUFFET, 3, y))
-                sprite.add(Sprite(Tile.Companion.BED, 4, y))
+                sprite.add(Sprite(Tile.BED, 0, y))
+                sprite.add(Sprite(Tile.BUFFET, 1, y))
+                sprite.add(Sprite(Tile.BUFFET, 3, y))
+                sprite.add(Sprite(Tile.BED, 4, y))
                 y += 2
             }
             return this
         }
 
         fun addKitchenFurniture(): Spec {
-            sprite.add(Sprite(Tile.Companion.TABLE, 0, 0))
-            sprite.add(Sprite(Tile.Companion.TABLE, 0, 1))
-            sprite.add(Sprite(Tile.Companion.TABLE, 1, 0))
-            sprite.add(Sprite(Tile.Companion.FOOD, 1, 1))
-            sprite.add(Sprite(Tile.Companion.BUFFET, 3, 0))
-            sprite.add(Sprite(Tile.Companion.BUFFET, 4, 0))
-            sprite.add(Sprite(Tile.Companion.TABLE, 0, 4))
-            sprite.add(Sprite(Tile.Companion.TABLE, 1, 4))
-            sprite.add(Sprite(Tile.Companion.TABLE, 3, 4))
-            sprite.add(Sprite(Tile.Companion.TABLE, 4, 4))
+            sprite.add(Sprite(Tile.TABLE, 0, 0))
+            sprite.add(Sprite(Tile.TABLE, 0, 1))
+            sprite.add(Sprite(Tile.TABLE, 1, 0))
+            sprite.add(Sprite(Tile.FOOD, 1, 1))
+            sprite.add(Sprite(Tile.BUFFET, 3, 0))
+            sprite.add(Sprite(Tile.BUFFET, 4, 0))
+            sprite.add(Sprite(Tile.TABLE, 0, 4))
+            sprite.add(Sprite(Tile.TABLE, 1, 4))
+            sprite.add(Sprite(Tile.TABLE, 3, 4))
+            sprite.add(Sprite(Tile.TABLE, 4, 4))
             return this
         }
 
         fun addHallFurniture(): Spec {
             var y = 1
             while (y <= 11) {
-                sprite.add(Sprite(Tile.Companion.VASE, 1, y))
-                sprite.add(Sprite(Tile.Companion.VASE, 7, y))
+                sprite.add(Sprite(Tile.VASE, 1, y))
+                sprite.add(Sprite(Tile.VASE, 7, y))
                 y += 2
             }
             return this
@@ -160,26 +160,26 @@ internal class Room(type: String?) {
                     .anchor(1, 0.33f).anchor(1, 0.66f)
                     .anchor(3, 0.33f).anchor(3, 0.66f)
                     .addHallFurniture()
-                    .addMonster(4, 6, Tile.Companion.HUMAN, 0.4f)
+                    .addMonster(4, 6, Tile.HUMAN, 0.4f)
             Spec("Diner", 7, 7, 2, 3)
                     .connect("Hall").connect("Apartment").connect("Kitchen").defaultAnchor()
                     .addDinerFurniture()
-                    .addMonster(3, 3, Tile.Companion.SPECTER, 0.2f)
+                    .addMonster(3, 3, Tile.SPECTER, 0.2f)
             Spec("Apartment", 5, 4, 1, 2)
                     .connect("Corridor").connect("Diner").anchor(0, 0.5f).anchor(2, 0.5f)
                     .addApartementFurniture()
-                    .addMonster(2, 2, Tile.Companion.SKELETON, 0.6f)
+                    .addMonster(2, 2, Tile.SKELETON, 0.6f)
             Spec("Kitchen", 5, 5, 2, 4)
                     .connect("Diner").connect("Barracks").defaultAnchor()
                     .addKitchenFurniture()
-                    .addMonster(2, 2, Tile.Companion.SPIDER, 0.4f)
+                    .addMonster(2, 2, Tile.SPIDER, 0.4f)
             Spec("Barracks", 5, 13, 2, 4)
                     .connect("Hall").connect("Kitchen").connect("Corridor")
                     .anchor(0, 0.5f).anchor(2, 0.5f)
                     .anchor(1, 0.33f).anchor(1, 0.66f)
                     .anchor(3, 0.33f).anchor(3, 0.66f)
                     .addBarracksFurniture()
-                    .addMonster(2, 6, Tile.Companion.SKELETON, 0.6f)
+                    .addMonster(2, 6, Tile.SKELETON, 0.6f)
             Spec("Corridor", 9, 1, 3, 8)
                     .connect("Corridor").connect("Hall").connect("Apartment").connect("Corridor")
                     .defaultAnchor()
@@ -187,7 +187,7 @@ internal class Room(type: String?) {
                     .anchor(2, 0.25f).anchor(2, 0.75f)
                     .anchor(0, 0f).anchor(0, 1f)
                     .anchor(2, 0f).anchor(2, 1f)
-                    .addMonster(4, 0, Tile.Companion.ELF, 0.1f)
+                    .addMonster(4, 0, Tile.ELF, 0.1f)
         }
     }
 
@@ -234,7 +234,7 @@ internal class Room(type: String?) {
                     var dy = -1
                     while (dy <= spec!!.height && can_place) {
                         val id = level[x0 + dx, y0 + dy]
-                        if (id == -1 || Tile.Companion.get(id)!!.hasOneFlag(Tile.Companion.F_BUILDING or Tile.Companion.F_SWIM)) can_place = false
+                        if (id == -1 || Tile.get(id)!!.hasOneFlag(Tile.F_BUILDING or Tile.F_SWIM)) can_place = false
                         ++dy
                     }
                     ++dx
@@ -253,7 +253,7 @@ internal class Room(type: String?) {
         x0 = x - opening!!.dx
         y0 = y - opening.dy
         for (dx in 0 until spec!!.width) for (dy in 0 until spec!!.height) {
-            level[x0 + dx, y0 + dy] = Tile.Companion.PAVEMENT
+            level[x0 + dx, y0 + dy] = Tile.PAVEMENT
         }
         for (s in spec!!.sprite) {
 //                Log.d("place",s.id+" "+s.prob);
@@ -263,12 +263,12 @@ internal class Room(type: String?) {
 
     fun addWall(level: Level) {
         for (dx in -1..spec!!.width) {
-            level[x0 + dx, y0 - 1] = Tile.Companion.F_WALL
-            level[x0 + dx, y0 + spec!!.height] = Tile.Companion.F_WALL
+            level[x0 + dx, y0 - 1] = Tile.F_WALL
+            level[x0 + dx, y0 + spec!!.height] = Tile.F_WALL
         }
         for (dy in -1..spec!!.height) {
-            level[x0 - 1, y0 + dy] = Tile.Companion.F_WALL
-            level[x0 + spec!!.width, y0 + dy] = Tile.Companion.F_WALL
+            level[x0 - 1, y0 + dy] = Tile.F_WALL
+            level[x0 + spec!!.width, y0 + dy] = Tile.F_WALL
         }
     }
 

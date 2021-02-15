@@ -1,6 +1,5 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
-import android.util.Pair
 import java.util.*
 
 /**

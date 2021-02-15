@@ -1,7 +1,6 @@
-package fr.iutlens.mmi.rogue
+package fr.iutlens.mmi.romaric.rogue
 
-import fr.iutlens.mmi.rogue.Hero as Hero1
-import android.graphics.Canvas
+import fr.iutlens.mmi.romaric.rogue.Hero as Hero1
 
 /**
  * Created by dubois on 30/12/2019.

@@ -1,8 +1,8 @@
-package fr.iutlens.mmi.rogue.util
+package fr.iutlens.mmi.romaric.rogue.util
 
 import android.content.Context
 import android.graphics.*
-import fr.iutlens.mmi.rogue.util.Utils.getColorFilterPaint
+import fr.iutlens.mmi.romaric.rogue.util.Utils.getColorFilterPaint
 
 
 class SpriteSheet(val n: Int, val m: Int) {
