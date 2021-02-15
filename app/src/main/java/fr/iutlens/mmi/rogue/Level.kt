@@ -9,15 +9,17 @@ import java.util.*
  * Created by dubois on 27/12/2017.
  */
 class Level(sizeX: Int, sizeY: Int, sprite_id: Int, sprite_bg_id: Int) {
-    val coord: Coordinate
-    val spriteSheet: SpriteSheet?
-    val spriteSheetBG: SpriteSheet?
+    val coord = Coordinate(sizeX, sizeY)
+    val spriteSheet: SpriteSheet? = SpriteSheet.Companion[sprite_id]
+    val spriteSheetBG = SpriteSheet.Companion[sprite_bg_id]
     private var ready: Boolean
     var start = 0
-    private val data: IntArray
+    private val data: IntArray = IntArray(sizeX * sizeY)
     private val content: MutableMap<Int, Sprite?>
     val zone: Array<Zone?>
     fun generate() {
+        ready = false
+        content.clear()
         Zone.generateZone(this)
         val generator = RoomGenerator(this)
         generator.generate()
@@ -110,11 +112,9 @@ class Level(sizeX: Int, sizeY: Int, sprite_id: Int, sprite_bg_id: Int) {
         }
     }
 
+
+
     init {
-        spriteSheet = SpriteSheet.Companion.get(sprite_id)
-        spriteSheetBG = SpriteSheet.Companion.get(sprite_bg_id)
-        coord = Coordinate(sizeX, sizeY)
-        data = IntArray(sizeX * sizeY)
         content = HashMap()
         zone = arrayOfNulls(9)
         ready = false

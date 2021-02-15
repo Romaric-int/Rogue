@@ -2,4 +2,8 @@
     <string name="app_name">Rogue</string>
     <string name="hello">hello</string>
     <string name="niveau_1">Niveau: 1</string>
+    <string name="rejouer">rejouer</string>
+    <string name="vous_avez_gagn">Vous avez gagné</string>
+    <string name="vous_avez_perdu">Vous avez perdu</string>
+    <string name="oui">oui</string>
 </resources>

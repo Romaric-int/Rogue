@@ -1,5 +1,6 @@
 package fr.iutlens.mmi.rogue
 
+import android.app.AlertDialog
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.widget.TextView
@@ -10,13 +11,13 @@ import fr.iutlens.mmi.rogue.util.SpriteSheet
  * Created by dubois on 24/12/2019.
  */
 class Hero(tileset: Int, id: Int, x: Int, y: Int) {
+
+    var exitlvl: Boolean = false
     private val spriteSheet: SpriteSheet? = SpriteSheet.get(tileset)
     private val id: Int = id
     var x: Int
-        private set
     var y: Int
-        private set
-
+    var hpmax: Int = 100
     var hp: Int = 100
 
     var lvl: Int = 1
@@ -57,19 +58,28 @@ class Hero(tileset: Int, id: Int, x: Int, y: Int) {
     }
 
     fun fight(id: Int) {
-        hp -= 3
+        hp -= 30
         xp += 3
         if (xp >= xpreach) {
             lvl += 1
             xpreach *= 2
             xp = 0
+            hpmax += 30
+            hp = hpmax
         }
     }
 
     fun heal(id: Int) {
-        hp += 3
+        hp += 10
     }
 
+    fun newlevel() {
+        lvl = 10;
+    }
+
+    fun trap(id: Int) {
+        hp -= 15
+    }
 
 
     init {

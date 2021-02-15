@@ -1,8 +1,14 @@
 package fr.iutlens.mmi.rogue
 
+import fr.iutlens.mmi.rogue.Hero as Hero1
+import android.graphics.Canvas
+
 /**
  * Created by dubois on 30/12/2019.
  */
+
+
+
 class Sprite {
     var prob: Float
     var id: Int
@@ -32,16 +38,24 @@ class Sprite {
     }
 
     fun block(): Boolean {
-        return Tile.get(id)!!.hasOneFlag(Tile.F_BLOCK)
+        return Tile[id]!!.hasOneFlag(Tile.F_BLOCK)
     }
 
-    fun effect(level: Level?, hero: Hero?) {
-        if (Tile.get(id)!!.hasOneFlag(Tile.F_MONSTER or Tile.F_CONSOMMABLE)) {
+    fun effect(level: Level?, hero: Hero1?) {
+        if (Tile[id]!!.hasOneFlag(Tile.F_MONSTER or Tile.F_CONSOMMABLE or Tile.F_TRAP)) {
             level!!.removeContent(x, y)
-            if (Tile.get(id)!!.hasOneFlag(Tile.F_MONSTER)) hero?.fight(id)
-            if (Tile.get(id)!!.hasOneFlag(Tile.F_CONSOMMABLE)) hero?.heal(id)
+            if (Tile[id]!!.hasOneFlag(Tile.F_MONSTER)) hero?.fight(id)
+            if (Tile[id]!!.hasOneFlag(Tile.F_CONSOMMABLE)) hero?.heal(id)
+
+            if (Tile[id]!!.hasOneFlag(Tile.F_TRAP)) hero?.trap(id)
+
+        }
+        if (Tile[id]!!.hasOneFlag(Tile.F_STAIR)) {
+            //level?.generate()
+            hero?.exitlvl = true
 
 
         }
+
     }
 }

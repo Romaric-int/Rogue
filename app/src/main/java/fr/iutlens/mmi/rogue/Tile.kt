@@ -48,6 +48,9 @@ internal class Tile @JvmOverloads constructor(private val color: Int, val code: 
         const val F_MONSTER = 0x20
         const val F_CONSOMMABLE = 0x40
         const val F_BLOCK = 0x80
+        const val F_STAIR = 0x100
+        const val F_TRAP = 0x200
+
         operator fun get(id: Int): Tile? {
             return map[id]
         }
@@ -99,10 +102,10 @@ internal class Tile @JvmOverloads constructor(private val color: Int, val code: 
             map[TABLE] = Tile(0x59390a, 0xD1, F_BLOCK)
             map[BED] = Tile(0xAAAACC, 0xE9, F_BLOCK)
             map[BUFFET] = Tile(0xBBAA99, 0xE3, F_BLOCK)
-            map[CHAIR] = Tile(0xBBAA99, 0xD2)
+            map[CHAIR] = Tile(0xBBAA99, 0xD2, F_TRAP)
             map[COFFER] = Tile(0x59390a, 0x08)
-            map[STAIRS_UP] = Tile(0x999999, 0x3C)
-            map[STAIRS_DOWN] = Tile(0x999999, 0x3E)
+            map[STAIRS_UP] = Tile(0x999999, 0x3C, F_STAIR)
+            map[STAIRS_DOWN] = Tile(0x999999, 0x3E, F_STAIR)
             map[VASE] = Tile(0x99AAFF, 0xEE)
             map[SPECTER] = Tile(0xFFFFFF, 0x84, F_MONSTER)
             map[HUMAN] = Tile(0xEEBB99, 0x40, F_MONSTER)

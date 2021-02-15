@@ -3,6 +3,8 @@ package fr.iutlens.mmi.rogue
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Matrix
+import androidx.core.view.TintableBackgroundView
+import androidx.core.widget.AutoSizeableTextView
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -11,10 +13,16 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import fr.iutlens.mmi.rogue.util.Coordinate
 import fr.iutlens.mmi.rogue.util.SpriteSheet
+import kotlin.Array as Array
+
 
 class GameView : View, OnTouchListener {
+    lateinit var generateTask: GameActivity.GenerateTask
+    lateinit var onWin: (String, Int) -> Unit
+
+
     private lateinit var level: Level
-    private lateinit var hero: Hero
+    private var hero: Hero? = null
     private var transform = Matrix()
     private var inverse = Matrix()
 
@@ -38,7 +46,7 @@ class GameView : View, OnTouchListener {
      * @param attrs
      * @param defStyle
      */
-    private fun init(attrs: AttributeSet?, defStyle: Int) {
+    public fun init(attrs: AttributeSet?, defStyle: Int) {
 
         // Chargement des feuilles de sprites
         SpriteSheet.Companion.register(R.drawable.tileset, 16, 16, this.context)
@@ -52,29 +60,41 @@ class GameView : View, OnTouchListener {
         setOnTouchListener(this)
     }
 
-    fun generate() {
+    public fun generate() {
         level.generate()
         val start = level.start
-        hero = Hero(R.drawable.tileset, 1, level.coord.getX(start), level.coord.getY(start))
-        hpbar()
-
+        if (hero == null) {
+            hero = Hero(R.drawable.tileset, 1, level.coord.getX(start), level.coord.getY(start))
+        } else {
+            hero?.x = level.coord.getX(start)
+            hero?.y = level.coord.getY(start)
+        }
     }
 
+
+
+
     var progressBar: ProgressBar?= null
+      // Default 100
 
 
 
     fun hpbar() {
-        progressBar?.progress = hero.hp
+        progressBar?.progress = hero!!.hp
+        progressBar?.max = hero!!.hpmax;
     }
 
+
     var resumelvl: TextView?= null
+    var textwin: TextView?= null
 
 
     fun showlvl() {
-        var  nivhero = hero.lvl.toString()
+        var  nivhero = hero?.lvl.toString()
         resumelvl?.text = "Niveau: $nivhero"
     }
+
+
 
 
 
@@ -93,7 +113,8 @@ class GameView : View, OnTouchListener {
         canvas.drawColor(-0x1000000)
 
 
-        if (!this::hero.isInitialized) return
+        if (hero == null ) return
+
 
 
 
@@ -102,8 +123,8 @@ class GameView : View, OnTouchListener {
         setCamera(canvas)
 
         // Dessin des différents éléments
-        level.paint(canvas, hero.x, hero.y, MIN_VISIBLE_TILES)
-        hero.paint(canvas)
+        level.paint(canvas, hero!!.x, hero!!.y, MIN_VISIBLE_TILES)
+        hero?.paint(canvas)
         val h = level.spriteSheet?.h ?: return
         val v = level.spriteSheet?.h ?: return
 
@@ -131,7 +152,7 @@ class GameView : View, OnTouchListener {
         transform.preScale(scale, scale)
 
         // On centre sur la position actuelle du héro (qui se retrouve en 0,0 )
-        transform.preTranslate(-(hero.x + 0.5f) * level.tileWidth, -(hero.y + 0.5f) * level.tileHeight)
+        transform.preTranslate(-(hero!!.x + 0.5f) * level.tileWidth, -(hero!!.y + 0.5f) * level.tileHeight)
 
         // Calcul de l'inverse, utilisé pour retrouver les coordonnées dans le jeu d'un clic
         transform.invert(inverse)
@@ -152,8 +173,8 @@ class GameView : View, OnTouchListener {
     private fun moveToward(x: Float, y: Float) {
 
         //Calcul des coordonnées dans la grille, par rapport au héro
-        val dx = x / level.tileWidth - hero.x
-        val dy = y / level.tileHeight - hero.y
+        val dx = x / level.tileWidth - hero!!.x
+        val dy = y / level.tileHeight - hero!!.y
 
         // Recherche de la direction à utiliser en calculant le produit scalaire :
         // On se déplacera dans le sens du vecteur avec le produit scalaire le plus grand
@@ -173,13 +194,27 @@ class GameView : View, OnTouchListener {
 
     private fun move(dir: Int) {
         // Déplacement proprement dit
-        hero.move(dir)
+        hero?.move(dir)
 
         // On récupère le contenu de la case, et on applique l'effet si on trouve qq chose
-        val sprite = level.getContent(hero.x, hero.y)
+        val sprite = level.getContent(hero!!.x, hero!!.y)
         sprite?.effect(level, hero)
+        if (hero!!.exitlvl) {
+            val task = GameActivity.GenerateTask(this)
+            task.execute()
+            hero?.exitlvl = false
+        }
         hpbar()
         showlvl()
+        if (hero?.lvl == 2) {
+            onWin("Vous avez gagné", R.drawable.crown)
+        }
+        if (hero != null && hero!!.hp <= 0) {
+
+            onWin("Vous avez perdu", R.drawable.lose)
+        }
+
+
 
 
 
@@ -191,7 +226,7 @@ class GameView : View, OnTouchListener {
     private fun canMove(dir: Int): Boolean {
 
         // On cherche ce qu'il y a dans la direction ou on veut bouger
-        val ndx = level.coord.getNext(hero.x, hero.y, dir)
+        val ndx = level.coord.getNext(hero!!.x, hero!!.y, dir)
         val id = level[ndx]
         // Si on est en dehors du plateau, le mouvement est impossible
         if (id == -1) return false
@@ -201,7 +236,7 @@ class GameView : View, OnTouchListener {
         // Si il n'y a pas de case, il y a un (gros) problème
 
         // On regarde si le mode de déplacement du héro est compatible avec celui de la case
-        if (!tile.hasOneFlag(hero.mobility)) return false
+        if (!tile.hasOneFlag(hero!!.mobility)) return false
 
         // On regarde si le contenu de la case est bloquant
         val sprite = level.getContent(ndx)

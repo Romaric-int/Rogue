@@ -1,12 +1,18 @@
 package fr.iutlens.mmi.rogue
 
+import android.content.Intent
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.TextView
+import android.widget.EditText
+import android.view.View
 
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+
+const val EXTRA_MESSAGE = ".mess"
+const val EXTRA_PHOTO = ".photo"
 class GameActivity : AppCompatActivity() {
-    internal class GenerateTask(val gameView: GameView) : AsyncTask<Int?, String?, Int>() {
+    class GenerateTask(val gameView: GameView) : AsyncTask<Int?, String?, Int>() {
         override fun onPostExecute(integer: Int) {
             super.onPostExecute(integer)
             gameView.invalidate()
@@ -27,12 +33,21 @@ class GameActivity : AppCompatActivity() {
         val gameView = findViewById<GameView>(R.id.gameView)
         gameView.progressBar = findViewById(R.id.viewhp)
         gameView.resumelvl = findViewById(R.id.lvlresume)
-
+        gameView.textwin = findViewById(R.id.textwin)
+        gameView.onWin = fun(message : String, photo: Int){
+            val intent = Intent(applicationContext, WinWindow::class.java).apply {
+                putExtra(EXTRA_MESSAGE, message)
+                putExtra(EXTRA_PHOTO, photo)
+            }
+            startActivity(intent)
+            finish()
+        }
 
 
 
 
         val task = GenerateTask(gameView)
+
 
         task.execute()
 
